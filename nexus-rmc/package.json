@@ -1,0 +1,29 @@
+{
+  "name": "nexus-rmc",
+  "version": "1.0.0",
+  "private": true,
+  "description": "NexLink \u2014 Secure remote access and network management",
+  "workspaces": [
+    "packages/*",
+    "apps/server",
+    "apps/desktop"
+  ],
+  "scripts": {
+    "dev:server": "npm run dev -w @nexus/server",
+    "dev:desktop": "npm run dev -w @nexus/desktop",
+    "dev": "concurrently -n server,desktop -c green,cyan \"npm run dev:server\" \"npm run dev:desktop\"",
+    "test": "npm test -w @nexus/protocol && npm test -w @nexus/server",
+    "build:desktop": "npm run build -w @nexus/desktop",
+    "demo": "node apps/server/scripts/demo.mjs",
+    "e2e": "node apps/server/scripts/e2e-smoke.mjs",
+    "ai-engine": "cd apps/ai-engine && python -m uvicorn engine:app --host 127.0.0.1 --port 8000",
+    "build:agent": "cd apps/agent && python build_agent.py",
+    "dist": "npm run build:agent && npm run dist -w @nexus/desktop"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

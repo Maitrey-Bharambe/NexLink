@@ -1,0 +1,215 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter";
+
+/*
+ * NexLink design system — the single source of colour for the whole app.
+ *
+ * Brand palette (never hard-code these in components; use the tokens below):
+ *   Deep Teal  #033A41  structure, identity, primary buttons, navigation
+ *   Aqua Teal  #09C4B1  interaction, connectivity, online, charts, focus
+ *   Warm Cream #F6E7D0  environment / main background
+ *   Warm Taupe #B39C7D  neutral, borders, offline, muted
+ *   Warm Gold  #DDAA6B  secondary emphasis, warnings, latency
+ *
+ * Components use semantic utilities (bg-surface, text-muted, bg-accent…).
+ * The values behind them switch with <html data-theme="light|dark">, and any
+ * element with .theme-deep (sidebar, network canvas, sign-in panel) always
+ * renders on the deep-teal palette.
+ */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@theme inline {
+  /* Constant brand colours */
+  --color-brand: #033a41;
+  --color-brand-2: #022f35;
+  --color-aqua: #09c4b1;
+  --color-gold: #ddaa6b;
+  --color-taupe: #b39c7d;
+  --color-cream: #f6e7d0;
+
+  /* Semantic (theme-aware) */
+  --color-canvas: var(--c-canvas);
+  --color-surface: var(--c-surface);
+  --color-raised: var(--c-raised);
+  --color-line: var(--c-line);
+  --color-line-strong: var(--c-line-strong);
+  --color-ink: var(--c-ink);
+  --color-ink-2: var(--c-ink-2);
+  --color-muted: var(--c-muted);
+  --color-primary: var(--c-primary);
+  --color-primary-strong: var(--c-primary-strong);
+  --color-primary-hover: var(--c-primary-hover);
+  --color-on-primary: var(--c-on-primary);
+  --color-accent: var(--c-accent);
+  --color-accent-ink: var(--c-accent-ink);
+  --color-accent-hover: var(--c-accent-hover);
+  --color-on-accent: var(--c-on-accent);
+  --color-warn: var(--c-warn);
+  --color-danger: var(--c-danger);
+  --color-neutral: var(--c-neutral);
+
+  --shadow-card: var(--s-card);
+  --shadow-pop: var(--s-pop);
+}
+
+@theme {
+  --font-sans: "Inter Variable", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-display: "Inter Variable", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "Cascadia Mono", "JetBrains Mono", Consolas, ui-monospace, monospace;
+  --radius-card: 12px;
+
+  --animate-pulse-soft: pulse-soft 2.4s ease-in-out infinite;
+  @keyframes pulse-soft {
+    0%, 100% { box-shadow: 0 0 0 0 rgb(9 196 177 / 0.4); }
+    50% { box-shadow: 0 0 0 4px transparent; }
+  }
+  --animate-fade-up: fade-up 0.25s ease-out both;
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: none; }
+  }
+}
+
+/* Light: cream environment, deep-teal structure, aqua interaction */
+:root {
+  /* Constant brand colours as runtime variables (for SVG/JS use) */
+  --c-brand: #033a41;
+  --c-gold: #ddaa6b;
+  --c-taupe: #b39c7d;
+}
+
+:root, [data-theme="light"] {
+  color-scheme: light;
+  --c-canvas: #f6e7d0;
+  --c-surface: #fcf6ec;
+  --c-raised: #f8eddc;
+  --c-line: #e6d6bc;
+  --c-line-strong: #cfbb9a;
+  --c-ink: #033a41;
+  --c-ink-2: #2c4c50;
+  --c-muted: #5f6865;
+  --c-primary: #033a41;
+  --c-primary-strong: #033a41;
+  --c-primary-hover: #0a4d55;
+  --c-on-primary: #f6e7d0;
+  --c-accent: #09c4b1;
+  --c-accent-ink: #067a6f;       /* aqua that stays readable on cream */
+  --c-accent-hover: #07a898;
+  --c-on-accent: #033a41;
+  --c-warn: #93652c;             /* gold that stays readable on cream */
+  --c-danger: #b0463d;
+  --c-neutral: #b39c7d;
+  --s-card: 0 1px 2px rgb(3 58 65 / 0.06);
+  --s-pop: 0 12px 32px rgb(3 58 65 / 0.18);
+}
+
+/* Dark (and .theme-deep): network-operations console on deep teal */
+[data-theme="dark"], .theme-deep {
+  color-scheme: dark;
+  --c-canvas: #022f35;
+  --c-surface: #06434b;
+  --c-raised: #0a4c55;
+  --c-line: #155660;
+  --c-line-strong: #22666f;
+  --c-ink: #f6e7d0;
+  --c-ink-2: #dccdb5;
+  --c-muted: #b39c7d;
+  --c-primary: #09c4b1;
+  --c-primary-strong: #09c4b1;
+  --c-primary-hover: #2fd3c2;
+  --c-on-primary: #022f35;
+  --c-accent: #09c4b1;
+  --c-accent-ink: #09c4b1;
+  --c-accent-hover: #2fd3c2;
+  --c-on-accent: #022f35;
+  --c-warn: #ddaa6b;
+  --c-danger: #e0806f;
+  --c-neutral: #b39c7d;
+  --s-card: 0 1px 2px rgb(0 0 0 / 0.18);
+  --s-pop: 0 16px 40px rgb(0 20 22 / 0.5);
+}
+/* Deep surfaces keep their own ink even inside the light theme */
+.theme-deep { color: var(--c-ink); }
+
+@layer base {
+  html, body, #root { height: 100%; }
+  body {
+    @apply bg-canvas text-ink font-sans antialiased;
+    font-size: 13.5px;
+    font-feature-settings: "cv11", "ss01";
+  }
+  ::selection { background: rgb(9 196 177 / 0.3); }
+  :focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--c-line-strong); border-radius: 8px; border: 3px solid transparent; background-clip: padding-box; }
+  ::-webkit-scrollbar-thumb:hover { background-color: var(--c-muted); }
+  ::-webkit-scrollbar-corner { background: transparent; }
+}
+
+@layer components {
+  .card {
+    @apply rounded-[var(--radius-card)] border border-line bg-surface shadow-[var(--s-card)];
+  }
+  .label-caps {
+    @apply text-[10.5px] font-semibold uppercase tracking-[0.08em] text-muted;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 h-9 px-3.5 rounded-lg text-[13px] font-medium whitespace-nowrap
+      transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  /* Primary = deep teal (aqua in dark); Accent = aqua */
+  .btn-primary { @apply bg-primary-strong text-on-primary hover:bg-primary-hover; }
+  .btn-accent { @apply bg-accent text-on-accent hover:bg-accent-hover; }
+  .btn-ghost { @apply text-ink-2 hover:bg-raised hover:text-ink; }
+  .btn-outline { @apply border border-line bg-surface text-ink hover:border-line-strong hover:bg-raised; }
+  .btn-danger { @apply border border-danger/40 bg-surface text-danger hover:bg-danger/10; }
+  .input {
+    @apply h-10 w-full rounded-lg border border-line bg-surface px-3 text-[13.5px] text-ink
+      placeholder:text-muted/70 focus:border-accent focus:outline-none focus:ring-3 focus:ring-accent/20 transition-colors;
+  }
+  .mono { @apply font-mono text-[12.5px]; }
+
+  /* Data tables */
+  .table { @apply w-full text-left text-[12.5px]; }
+  .table thead th {
+    @apply text-[10.5px] font-semibold uppercase tracking-[0.08em] text-muted sticky top-0 z-[1] whitespace-nowrap border-b border-line bg-raised px-4 py-2.5;
+  }
+  .table tbody td { @apply whitespace-nowrap px-4 py-2.5; }
+  .table tbody tr { @apply border-b border-line last:border-0 transition-colors hover:bg-raised/70; }
+
+  .app-backdrop { background-color: var(--c-canvas); }
+  /* Technical grid for network canvases */
+  .net-grid {
+    background-image: radial-gradient(rgb(246 231 208 / 0.07) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+}
+
+/* Custom title bar (Electron titleBarOverlay) */
+.drag { -webkit-app-region: drag; }
+.no-drag, .drag button, .drag a, .drag input, .drag kbd { -webkit-app-region: no-drag; }
+[data-desktop] .titlebar-pad { padding-right: 150px; }
+
+/* React Flow: quiet canvas, themed controls */
+.react-flow__attribution { display: none; }
+.react-flow__edge-path { stroke-width: 1.8; }
+.react-flow__handle { opacity: 0; pointer-events: none; }
+.react-flow__controls {
+  border: 1px solid var(--c-line); border-radius: 8px; overflow: hidden; box-shadow: var(--s-card);
+}
+.react-flow__controls-button {
+  background: var(--c-surface); border-bottom: 1px solid var(--c-line); color: var(--c-ink-2); fill: var(--c-ink-2);
+}
+.react-flow__controls-button:hover { background: var(--c-raised); }
+.react-flow__controls-button svg { fill: currentColor; }
+
+/* Animated dash for live tunnel traffic (data flow) */
+@keyframes flow-dash { to { stroke-dashoffset: -20; } }
+.edge-live .react-flow__edge-path { stroke-dasharray: 6 4; animation: flow-dash 1.2s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .edge-live .react-flow__edge-path { animation: none; }
+  * { animation-duration: 0.01ms !important; }
+}

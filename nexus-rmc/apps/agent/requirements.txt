@@ -1,0 +1,7 @@
+websockets>=12
+psutil>=5.9
+Pillow>=10
+mss>=9
+pynput>=1.7
+cryptography>=41
+pywin32>=306; sys_platform == "win32"

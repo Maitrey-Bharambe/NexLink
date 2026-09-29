@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="1200" height="300" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="#F6E7D0" fill-opacity="0.07"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="300" rx="18" fill="#033A41"/>
+  <rect width="1200" height="300" rx="18" fill="url(#grid)"/>
+
+  <!-- network motif on the right -->
+  <g transform="translate(70 0)">
+  <g stroke-width="2" fill="none" stroke-linecap="round">
+    <path d="M930 150 L1050 70 M930 150 L1085 150 M930 150 L1050 230 M930 150 L815 80 M930 150 L815 220" stroke="#09C4B1" stroke-opacity="0.55" stroke-dasharray="6 6"/>
+  </g>
+  <circle cx="930" cy="150" r="26" fill="#022F35" stroke="#09C4B1" stroke-width="2.5"/>
+  <circle cx="930" cy="150" r="8" fill="#09C4B1"/>
+  <g fill="#022F35" stroke="#F6E7D0" stroke-opacity="0.6" stroke-width="1.5">
+    <rect x="1034" y="56" width="32" height="26" rx="5"/><rect x="1069" y="137" width="32" height="26" rx="5"/>
+    <rect x="1034" y="217" width="32" height="26" rx="5"/><rect x="799" y="66" width="32" height="26" rx="5"/>
+    <rect x="799" y="207" width="32" height="26" rx="5"/>
+  </g>
+  <circle cx="1085" cy="150" r="4" fill="#DDAA6B"/>
+  <text x="930" y="200" text-anchor="middle" font-size="12" fill="#B39C7D" letter-spacing="2">10.50.0.1</text>
+  </g>
+
+  <!-- mark -->
+  <g transform="translate(70 86) scale(2)">
+    <rect width="64" height="64" rx="14" fill="#022F35" stroke="#F6E7D0" stroke-opacity="0.15"/>
+    <path d="M19 45V19M45 45V19" stroke="#F6E7D0" stroke-width="5" stroke-linecap="round"/>
+    <path d="M19 19L45 45" stroke="#09C4B1" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="19" cy="45" r="5.5" fill="#F6E7D0"/><circle cx="19" cy="19" r="5.5" fill="#09C4B1"/>
+    <circle cx="45" cy="45" r="5.5" fill="#09C4B1"/><circle cx="45" cy="19" r="5.5" fill="#DDAA6B"/>
+  </g>
+
+  <text x="232" y="148" font-size="68" font-weight="700" fill="#F6E7D0" letter-spacing="-1">Nex<tspan fill="#09C4B1">Link</tspan></text>
+  <text x="236" y="186" font-size="14" font-weight="600" fill="#B39C7D" letter-spacing="3.5">SECURE REMOTE ACCESS · NETWORK MANAGEMENT</text>
+  <text x="236" y="222" font-size="15" fill="#DCCDB5">WireGuard private network · live monitoring · remote desktop · AI diagnostics</text>
+</svg>

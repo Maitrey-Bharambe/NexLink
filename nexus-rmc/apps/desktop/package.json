@@ -1,0 +1,83 @@
+{
+  "name": "@nexus/desktop",
+  "productName": "NexLink",
+  "version": "1.0.0",
+  "private": true,
+  "description": "NexLink \u2014 Secure remote access and network management (admin console)",
+  "main": "electron/main.cjs",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k -n vite,electron \"vite\" \"wait-on tcp:127.0.0.1:5173 && cross-env NEXUS_DEV=1 electron .\"",
+    "dev:web": "vite",
+    "build": "vite build",
+    "start": "electron .",
+    "dist": "vite build && node scripts/stage.mjs && electron-builder --win --x64",
+    "stage": "node scripts/stage.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.3.0",
+    "@nexus/protocol": "0.1.0",
+    "@xyflow/react": "^12.3.5",
+    "lucide-react": "^0.460.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.28.0",
+    "zustand": "^5.0.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.0",
+    "cross-env": "^7.0.3",
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8",
+    "tailwindcss": "^4.0.0",
+    "vite": "^6.0.1",
+    "wait-on": "^8.0.1"
+  },
+  "build": {
+    "appId": "edu.nexus.rmc",
+    "productName": "NexLink",
+    "artifactName": "NexLink-Setup-${version}.${ext}",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "dist/**",
+      "electron/**",
+      "build/icon.ico",
+      "package.json",
+      "!node_modules/**"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "build/nexlink.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "NexLink",
+      "installerIcon": "build/nexlink.ico",
+      "uninstallerIcon": "build/nexlink.ico"
+    },
+    "extraResources": [
+      {
+        "from": "stage/server",
+        "to": "server"
+      },
+      {
+        "from": "stage/agent",
+        "to": "agent"
+      }
+    ],
+    "electronVersion": "33.4.11",
+    "npmRebuild": false
+  },
+  "author": "NexLink"
+}

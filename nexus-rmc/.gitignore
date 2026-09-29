@@ -1,0 +1,18 @@
+node_modules/
+dist/
+dist-electron/
+release/
+.env
+*.log
+__pycache__/
+.venv/
+apps/server/data/
+apps/desktop/stage/
+apps/agent/build/
+apps/agent/dist/
+apps/agent/build.log
+
+# server-generated secrets and WireGuard keys, wherever the server was started from
+**/data/jwt.secret
+**/data/wireguard/
+apps/server/src/data/
